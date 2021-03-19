@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Account() {
+export default function UserGuest() {
     return (
         <View>
-            <Text>Account</Text>
+            <Text>UserGuest...</Text>
+            <Loading isVisible={true} text="Cargando..."/>
         </View>
     )
 }
