@@ -1,13 +1,12 @@
 import { size } from 'lodash'
 import React, {useState} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 
 import { validateEmail } from '../../utils/helpers'
 import { registerUser} from '../../utils/actions'
-
-const navigation = useNavigation()
+import Loading from '../Loading'
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false)
@@ -15,6 +14,9 @@ export default function RegisterForm() {
     const [errorEmail, setErrorEmail] = useState("")
     const [errorPassword, setErrorPassword] = useState("")
     const [errorConfirm, setErrorConfirm] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    const navigation = useNavigation()
 
     const onChange = (e, type) => {
       setFormData({ ...formData, type: e.nativeEvent.text})
@@ -25,7 +27,10 @@ export default function RegisterForm() {
             return;
         }
 
+        setLoading(true)
         const result = await registerUser(formData.email, formData.password)
+        setLoading(true)
+        
         if(!result.statusResponse) {
             setErrorEmail(result.error)
             return
@@ -112,6 +117,7 @@ export default function RegisterForm() {
              buttonStyle={styles.btn}
              onPress={() => doRegisterUser()}
            />
+           <Loading isVisible={Loading} text="Creando cuenta..."/>
         </View>
     )
 }
