@@ -4,6 +4,7 @@ import { map } from 'lodash';
 import { ListItem } from 'react-native-elements';
 import Modal from '../Modal';
 import ChageDisplayNameForm from './ChageDisplayNameForm';
+import ChangeEmailForm from './ChangeEmailForm';
 
 export default function AccountOptions({user, toastRef}) {
     
@@ -53,7 +54,12 @@ export default function AccountOptions({user, toastRef}) {
                 break;
                 case "email":
                     setrenderComponent(
-                        <Text>email</Text>
+                        <ChangeEmailForm
+                        email={user.email}
+                        setshowModal={setshowModal}
+                        toastRef={toastRef}
+                        setreloadUser={setreloadUser}
+                        />
                     )
                     break;
                     case "password":
